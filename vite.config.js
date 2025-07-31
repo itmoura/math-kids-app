@@ -3,11 +3,13 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/math-kids-app/',
   server: {
     host: '0.0.0.0',
     port: 3000
   },
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    assetsDir: 'assets'
   }
 })
