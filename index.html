@@ -619,12 +619,284 @@
         gap: 1rem;
       }
     }
+
+    /* Navigation Styles */
+    .main-nav {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .nav-brand {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      font-size: 0.8rem;
+    }
+
+    .status-indicator {
+      font-size: 0.6rem;
+    }
+
+    /* Community App Styles */
+    .app-section {
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .community-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: white;
+    }
+
+    .community-header .title {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .sync-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .community-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .tool-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-card p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .active-tool {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .tool-header {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .tool-header h2 {
+      color: white;
+      margin: 0;
+    }
+
+    .close-tool {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .tool-content {
+      padding: 1.5rem;
+      color: white;
+    }
+
+    .sync-panel {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      color: white;
+    }
+
+    .sync-panel h3 {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .sync-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .sync-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sync-label {
+      opacity: 0.8;
+    }
+
+    .sync-value {
+      font-weight: bold;
+    }
+
+    .sync-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .sync-btn, .export-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sync-btn:hover, .export-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .sync-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sync-actions {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="app">
-    <!-- Header -->
-    <header class="header">
+    <!-- Navigation Menu -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <div class="nav-brand">🌐 Multi App Offline</div>
+        <div class="nav-menu">
+          <button class="nav-btn active" onclick="showApp('math')" data-app="math">
+            🧮 Matemática
+          </button>
+          <button class="nav-btn" onclick="showApp('community')" data-app="community">
+            🏘️ Comunidade Offline
+          </button>
+        </div>
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-indicator" id="statusIndicator">🟢</span>
+          <span class="status-text" id="statusText">Online</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Math App Header -->
+    <header class="header" id="math-header">
       <div class="header-top">
         <h1 class="title">🧮 Matemática Divertida! 🎉</h1>
         <div class="audio-controls">
@@ -745,6 +1017,97 @@
         </div>
       </div>
     </main>
+
+    <!-- Community Offline App -->
+    <div id="community-app" class="app-section" style="display: none;">
+      <header class="community-header">
+        <h1 class="title">🏘️ Comunidade Offline</h1>
+        <p class="subtitle">Ferramentas essenciais para comunidades sem internet constante</p>
+        <div class="sync-status" id="syncStatus">
+          <span class="sync-indicator">📱</span>
+          <span>Dados salvos localmente</span>
+        </div>
+      </header>
+
+      <main class="community-container">
+        <!-- Quick Tools Grid -->
+        <div class="tools-grid">
+          <div class="tool-card" onclick="openTool('calculator')">
+            <div class="tool-icon">🧮</div>
+            <h3>Calculadora</h3>
+            <p>Cálculos básicos e avançados</p>
+          </div>
+          
+          <div class="tool-card" onclick="openTool('notes')">
+            <div class="tool-icon">📝</div>
+            <h3>Bloco de Notas</h3>
+            <p>Anotações importantes</p>
+          </div>
+          
+          <div class="tool-card" onclick="openTool('contacts')">
+            <div class="tool-icon">👥</div>
+            <h3>Contatos</h3>
+            <p>Lista de contatos da comunidade</p>
+          </div>
+          
+          <div class="tool-card" onclick="openTool('calendar')">
+            <div class="tool-icon">📅</div>
+            <h3>Calendário</h3>
+            <p>Eventos e compromissos</p>
+          </div>
+          
+          <div class="tool-card" onclick="openTool('weather')">
+            <div class="tool-icon">🌤️</div>
+            <h3>Clima Local</h3>
+            <p>Previsão offline básica</p>
+          </div>
+          
+          <div class="tool-card" onclick="openTool('health')">
+            <div class="tool-icon">🏥</div>
+            <h3>Saúde</h3>
+            <p>Primeiros socorros e dicas</p>
+          </div>
+        </div>
+
+        <!-- Active Tool Area -->
+        <div class="active-tool" id="activeTool" style="display: none;">
+          <div class="tool-header">
+            <h2 id="toolTitle">Ferramenta</h2>
+            <button class="close-tool" onclick="closeTool()">✕</button>
+          </div>
+          <div class="tool-content" id="toolContent">
+            <!-- Tool content will be loaded here -->
+          </div>
+        </div>
+
+        <!-- Data Sync Panel -->
+        <div class="sync-panel">
+          <h3>🔄 Sincronização de Dados</h3>
+          <div class="sync-info">
+            <div class="sync-item">
+              <span class="sync-label">Última sincronização:</span>
+              <span class="sync-value" id="lastSync">Nunca</span>
+            </div>
+            <div class="sync-item">
+              <span class="sync-label">Dados armazenados:</span>
+              <span class="sync-value" id="dataSize">0 KB</span>
+            </div>
+            <div class="sync-item">
+              <span class="sync-label">Status da conexão:</span>
+              <span class="sync-value" id="connectionInfo">Offline</span>
+            </div>
+          </div>
+          <div class="sync-actions">
+            <button class="sync-btn" onclick="syncData()" id="syncBtn" disabled>
+              📡 Sincronizar quando online
+            </button>
+            <button class="export-btn" onclick="exportData()">
+              💾 Exportar dados
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1428,12 +1791,551 @@
     // Inicializar quando a página carregar
     window.addEventListener('load', () => {
       initGame();
+      initCommunityApp();
       
       // Adicionar sons de hover após carregar
       setTimeout(() => {
         addHoverSounds();
       }, 1000);
     });
+
+    // ===== COMMUNITY OFFLINE APP FUNCTIONS =====
+    
+    let communityData = {
+      notes: [],
+      contacts: [],
+      events: [],
+      lastSync: null,
+      isOnline: navigator.onLine
+    };
+
+    function initCommunityApp() {
+      // Load saved data
+      loadCommunityData();
+      
+      // Monitor connection status
+      window.addEventListener('online', updateConnectionStatus);
+      window.addEventListener('offline', updateConnectionStatus);
+      
+      updateConnectionStatus();
+      updateDataSize();
+    }
+
+    function showApp(appName) {
+      // Update navigation
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-app="${appName}"]`).classList.add('active');
+      
+      // Show/hide apps
+      if (appName === 'math') {
+        document.getElementById('math-header').style.display = 'block';
+        document.querySelector('.game-container').style.display = 'block';
+        document.getElementById('community-app').style.display = 'none';
+      } else if (appName === 'community') {
+        document.getElementById('math-header').style.display = 'none';
+        document.querySelector('.game-container').style.display = 'none';
+        document.getElementById('community-app').style.display = 'block';
+      }
+    }
+
+    function updateConnectionStatus() {
+      const isOnline = navigator.onLine;
+      communityData.isOnline = isOnline;
+      
+      const statusIndicator = document.getElementById('statusIndicator');
+      const statusText = document.getElementById('statusText');
+      const connectionInfo = document.getElementById('connectionInfo');
+      const syncBtn = document.getElementById('syncBtn');
+      
+      if (isOnline) {
+        statusIndicator.textContent = '🟢';
+        statusText.textContent = 'Online';
+        connectionInfo.textContent = 'Conectado';
+        syncBtn.disabled = false;
+      } else {
+        statusIndicator.textContent = '🔴';
+        statusText.textContent = 'Offline';
+        connectionInfo.textContent = 'Desconectado';
+        syncBtn.disabled = true;
+      }
+    }
+
+    function openTool(toolName) {
+      const activeTool = document.getElementById('activeTool');
+      const toolTitle = document.getElementById('toolTitle');
+      const toolContent = document.getElementById('toolContent');
+      
+      activeTool.style.display = 'block';
+      
+      switch(toolName) {
+        case 'calculator':
+          toolTitle.textContent = '🧮 Calculadora';
+          toolContent.innerHTML = createCalculatorHTML();
+          break;
+        case 'notes':
+          toolTitle.textContent = '📝 Bloco de Notas';
+          toolContent.innerHTML = createNotesHTML();
+          loadNotes();
+          break;
+        case 'contacts':
+          toolTitle.textContent = '👥 Contatos';
+          toolContent.innerHTML = createContactsHTML();
+          loadContacts();
+          break;
+        case 'calendar':
+          toolTitle.textContent = '📅 Calendário';
+          toolContent.innerHTML = createCalendarHTML();
+          loadEvents();
+          break;
+        case 'weather':
+          toolTitle.textContent = '🌤️ Clima Local';
+          toolContent.innerHTML = createWeatherHTML();
+          break;
+        case 'health':
+          toolTitle.textContent = '🏥 Saúde';
+          toolContent.innerHTML = createHealthHTML();
+          break;
+      }
+      
+      activeTool.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeTool() {
+      document.getElementById('activeTool').style.display = 'none';
+    }
+
+    function createCalculatorHTML() {
+      return `
+        <div class="calculator">
+          <div class="calc-display">
+            <input type="text" id="calcDisplay" readonly value="0">
+          </div>
+          <div class="calc-buttons">
+            <button onclick="clearCalc()">C</button>
+            <button onclick="calcInput('/')" class="operator">÷</button>
+            <button onclick="calcInput('*')" class="operator">×</button>
+            <button onclick="deleteLast()">⌫</button>
+            
+            <button onclick="calcInput('7')">7</button>
+            <button onclick="calcInput('8')">8</button>
+            <button onclick="calcInput('9')">9</button>
+            <button onclick="calcInput('-')" class="operator">-</button>
+            
+            <button onclick="calcInput('4')">4</button>
+            <button onclick="calcInput('5')">5</button>
+            <button onclick="calcInput('6')">6</button>
+            <button onclick="calcInput('+')" class="operator">+</button>
+            
+            <button onclick="calcInput('1')">1</button>
+            <button onclick="calcInput('2')">2</button>
+            <button onclick="calcInput('3')">3</button>
+            <button onclick="calculate()" class="equals" rowspan="2">=</button>
+            
+            <button onclick="calcInput('0')" colspan="2">0</button>
+            <button onclick="calcInput('.')">.</button>
+          </div>
+        </div>
+        <style>
+          .calculator { max-width: 300px; margin: 0 auto; }
+          .calc-display { margin-bottom: 1rem; }
+          .calc-display input { width: 100%; padding: 1rem; font-size: 1.5rem; text-align: right; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; }
+          .calc-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+          .calc-buttons button { padding: 1rem; font-size: 1.2rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; cursor: pointer; }
+          .calc-buttons button:hover { background: rgba(255,255,255,0.2); }
+          .operator { background: rgba(102, 126, 234, 0.3) !important; }
+          .equals { background: rgba(118, 75, 162, 0.3) !important; }
+        </style>
+      `;
+    }
+
+    function createNotesHTML() {
+      return `
+        <div class="notes-app">
+          <div class="notes-input">
+            <textarea id="noteInput" placeholder="Digite sua anotação aqui..." rows="4"></textarea>
+            <button onclick="saveNote()">💾 Salvar Nota</button>
+          </div>
+          <div class="notes-list" id="notesList">
+            <!-- Notes will be loaded here -->
+          </div>
+        </div>
+        <style>
+          .notes-input { margin-bottom: 2rem; }
+          .notes-input textarea { width: 100%; padding: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; resize: vertical; }
+          .notes-input button { margin-top: 1rem; padding: 0.75rem 1.5rem; background: rgba(102, 126, 234, 0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; cursor: pointer; }
+          .note-item { background: rgba(255,255,255,0.1); padding: 1rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
+          .note-date { font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem; }
+          .note-content { line-height: 1.5; }
+          .note-actions { margin-top: 0.5rem; }
+          .note-actions button { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; margin-right: 0.5rem; }
+        </style>
+      `;
+    }
+
+    function createContactsHTML() {
+      return `
+        <div class="contacts-app">
+          <div class="contact-form">
+            <h4>Adicionar Contato</h4>
+            <input type="text" id="contactName" placeholder="Nome">
+            <input type="text" id="contactPhone" placeholder="Telefone">
+            <input type="text" id="contactRole" placeholder="Função/Cargo">
+            <button onclick="saveContact()">👤 Adicionar Contato</button>
+          </div>
+          <div class="contacts-list" id="contactsList">
+            <!-- Contacts will be loaded here -->
+          </div>
+        </div>
+        <style>
+          .contact-form { background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; }
+          .contact-form input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; }
+          .contact-form button { padding: 0.75rem 1.5rem; background: rgba(102, 126, 234, 0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; cursor: pointer; }
+          .contact-item { background: rgba(255,255,255,0.1); padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+          .contact-info h5 { margin: 0 0 0.25rem 0; }
+          .contact-info p { margin: 0; opacity: 0.8; font-size: 0.9rem; }
+          .contact-actions button { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; }
+        </style>
+      `;
+    }
+
+    function createCalendarHTML() {
+      return `
+        <div class="calendar-app">
+          <div class="event-form">
+            <h4>Adicionar Evento</h4>
+            <input type="text" id="eventTitle" placeholder="Título do evento">
+            <input type="date" id="eventDate">
+            <input type="time" id="eventTime">
+            <textarea id="eventDescription" placeholder="Descrição" rows="2"></textarea>
+            <button onclick="saveEvent()">📅 Adicionar Evento</button>
+          </div>
+          <div class="events-list" id="eventsList">
+            <!-- Events will be loaded here -->
+          </div>
+        </div>
+        <style>
+          .event-form { background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; }
+          .event-form input, .event-form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; }
+          .event-form button { padding: 0.75rem 1.5rem; background: rgba(102, 126, 234, 0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; cursor: pointer; }
+          .event-item { background: rgba(255,255,255,0.1); padding: 1rem; margin-bottom: 1rem; border-radius: 8px; }
+          .event-date-time { font-weight: bold; margin-bottom: 0.5rem; }
+          .event-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+          .event-description { opacity: 0.8; font-size: 0.9rem; }
+        </style>
+      `;
+    }
+
+    function createWeatherHTML() {
+      return `
+        <div class="weather-app">
+          <div class="weather-info">
+            <h4>🌤️ Previsão Básica</h4>
+            <p><strong>Dica:</strong> Esta é uma versão offline básica. Para informações precisas, consulte fontes locais.</p>
+            
+            <div class="weather-tips">
+              <h5>📊 Indicadores Naturais:</h5>
+              <ul>
+                <li><strong>Nuvens escuras:</strong> Possibilidade de chuva</li>
+                <li><strong>Vento forte:</strong> Mudança climática próxima</li>
+                <li><strong>Animais inquietos:</strong> Tempestade se aproximando</li>
+                <li><strong>Pressão baixa:</strong> Tempo instável</li>
+              </ul>
+              
+              <h5>🌡️ Temperaturas Típicas:</h5>
+              <div class="temp-guide">
+                <div>☀️ Ensolarado: 25-35°C</div>
+                <div>⛅ Parcialmente nublado: 20-28°C</div>
+                <div>🌧️ Chuvoso: 15-25°C</div>
+                <div>❄️ Frio: Abaixo de 15°C</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .weather-info { background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; }
+          .weather-tips ul { margin: 1rem 0; padding-left: 1.5rem; }
+          .weather-tips li { margin-bottom: 0.5rem; }
+          .temp-guide { display: grid; gap: 0.5rem; margin-top: 1rem; }
+          .temp-guide div { background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 4px; }
+        </style>
+      `;
+    }
+
+    function createHealthHTML() {
+      return `
+        <div class="health-app">
+          <div class="health-info">
+            <h4>🏥 Primeiros Socorros Básicos</h4>
+            
+            <div class="emergency-contacts">
+              <h5>📞 Contatos de Emergência:</h5>
+              <div class="emergency-item">SAMU: 192</div>
+              <div class="emergency-item">Bombeiros: 193</div>
+              <div class="emergency-item">Polícia: 190</div>
+            </div>
+            
+            <div class="first-aid-tips">
+              <h5>🩹 Dicas Básicas:</h5>
+              <div class="tip-item">
+                <strong>Cortes pequenos:</strong> Limpe com água, pressione para parar sangramento, cubra com curativo limpo.
+              </div>
+              <div class="tip-item">
+                <strong>Queimaduras leves:</strong> Água fria por 10-15 minutos, não use gelo.
+              </div>
+              <div class="tip-item">
+                <strong>Febre:</strong> Hidratação, repouso, compressas frias na testa.
+              </div>
+              <div class="tip-item">
+                <strong>Engasgo:</strong> Manobra de Heimlich - pressão abdominal para cima.
+              </div>
+            </div>
+            
+            <div class="warning">
+              ⚠️ <strong>Importante:</strong> Estas são dicas básicas. Em emergências graves, procure ajuda médica imediatamente.
+            </div>
+          </div>
+        </div>
+        <style>
+          .health-info { background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; }
+          .emergency-contacts { margin-bottom: 2rem; }
+          .emergency-item { background: rgba(255, 0, 0, 0.2); padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 4px; font-weight: bold; text-align: center; }
+          .tip-item { background: rgba(255,255,255,0.1); padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+          .warning { background: rgba(255, 165, 0, 0.2); padding: 1rem; border-radius: 4px; margin-top: 2rem; }
+        </style>
+      `;
+    }
+
+    // Calculator functions
+    let calcExpression = '';
+    function calcInput(value) {
+      const display = document.getElementById('calcDisplay');
+      if (display.value === '0') display.value = '';
+      display.value += value;
+      calcExpression += value;
+    }
+
+    function clearCalc() {
+      document.getElementById('calcDisplay').value = '0';
+      calcExpression = '';
+    }
+
+    function deleteLast() {
+      const display = document.getElementById('calcDisplay');
+      display.value = display.value.slice(0, -1) || '0';
+      calcExpression = calcExpression.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        const result = eval(calcExpression.replace(/×/g, '*').replace(/÷/g, '/'));
+        document.getElementById('calcDisplay').value = result;
+        calcExpression = result.toString();
+      } catch (e) {
+        document.getElementById('calcDisplay').value = 'Erro';
+        calcExpression = '';
+      }
+    }
+
+    // Notes functions
+    function saveNote() {
+      const noteInput = document.getElementById('noteInput');
+      const content = noteInput.value.trim();
+      if (!content) return;
+      
+      const note = {
+        id: Date.now(),
+        content: content,
+        date: new Date().toLocaleString('pt-BR')
+      };
+      
+      communityData.notes.unshift(note);
+      saveCommunityData();
+      noteInput.value = '';
+      loadNotes();
+    }
+
+    function loadNotes() {
+      const notesList = document.getElementById('notesList');
+      if (!notesList) return;
+      
+      notesList.innerHTML = communityData.notes.map(note => `
+        <div class="note-item">
+          <div class="note-date">${note.date}</div>
+          <div class="note-content">${note.content}</div>
+          <div class="note-actions">
+            <button onclick="deleteNote(${note.id})">🗑️ Excluir</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function deleteNote(id) {
+      communityData.notes = communityData.notes.filter(note => note.id !== id);
+      saveCommunityData();
+      loadNotes();
+    }
+
+    // Contacts functions
+    function saveContact() {
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const role = document.getElementById('contactRole').value.trim();
+      
+      if (!name || !phone) return;
+      
+      const contact = {
+        id: Date.now(),
+        name: name,
+        phone: phone,
+        role: role || 'N/A'
+      };
+      
+      communityData.contacts.push(contact);
+      saveCommunityData();
+      
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactPhone').value = '';
+      document.getElementById('contactRole').value = '';
+      
+      loadContacts();
+    }
+
+    function loadContacts() {
+      const contactsList = document.getElementById('contactsList');
+      if (!contactsList) return;
+      
+      contactsList.innerHTML = communityData.contacts.map(contact => `
+        <div class="contact-item">
+          <div class="contact-info">
+            <h5>${contact.name}</h5>
+            <p>📞 ${contact.phone}</p>
+            <p>💼 ${contact.role}</p>
+          </div>
+          <div class="contact-actions">
+            <button onclick="deleteContact(${contact.id})">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function deleteContact(id) {
+      communityData.contacts = communityData.contacts.filter(contact => contact.id !== id);
+      saveCommunityData();
+      loadContacts();
+    }
+
+    // Events functions
+    function saveEvent() {
+      const title = document.getElementById('eventTitle').value.trim();
+      const date = document.getElementById('eventDate').value;
+      const time = document.getElementById('eventTime').value;
+      const description = document.getElementById('eventDescription').value.trim();
+      
+      if (!title || !date) return;
+      
+      const event = {
+        id: Date.now(),
+        title: title,
+        date: date,
+        time: time || '00:00',
+        description: description || ''
+      };
+      
+      communityData.events.push(event);
+      communityData.events.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+      saveCommunityData();
+      
+      document.getElementById('eventTitle').value = '';
+      document.getElementById('eventDate').value = '';
+      document.getElementById('eventTime').value = '';
+      document.getElementById('eventDescription').value = '';
+      
+      loadEvents();
+    }
+
+    function loadEvents() {
+      const eventsList = document.getElementById('eventsList');
+      if (!eventsList) return;
+      
+      eventsList.innerHTML = communityData.events.map(event => `
+        <div class="event-item">
+          <div class="event-date-time">📅 ${new Date(event.date).toLocaleDateString('pt-BR')} às ${event.time}</div>
+          <div class="event-title">${event.title}</div>
+          <div class="event-description">${event.description}</div>
+          <button onclick="deleteEvent(${event.id})" style="margin-top: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer;">🗑️ Excluir</button>
+        </div>
+      `).join('');
+    }
+
+    function deleteEvent(id) {
+      communityData.events = communityData.events.filter(event => event.id !== id);
+      saveCommunityData();
+      loadEvents();
+    }
+
+    // Data management functions
+    function saveCommunityData() {
+      localStorage.setItem('communityData', JSON.stringify(communityData));
+      updateDataSize();
+    }
+
+    function loadCommunityData() {
+      const saved = localStorage.getItem('communityData');
+      if (saved) {
+        communityData = { ...communityData, ...JSON.parse(saved) };
+      }
+    }
+
+    function updateDataSize() {
+      const dataStr = JSON.stringify(communityData);
+      const sizeKB = Math.round(new Blob([dataStr]).size / 1024);
+      const dataSizeElement = document.getElementById('dataSize');
+      if (dataSizeElement) {
+        dataSizeElement.textContent = `${sizeKB} KB`;
+      }
+    }
+
+    function syncData() {
+      if (!navigator.onLine) return;
+      
+      // Simulate sync process
+      const syncBtn = document.getElementById('syncBtn');
+      syncBtn.textContent = '🔄 Sincronizando...';
+      syncBtn.disabled = true;
+      
+      setTimeout(() => {
+        communityData.lastSync = new Date().toLocaleString('pt-BR');
+        saveCommunityData();
+        
+        const lastSyncElement = document.getElementById('lastSync');
+        if (lastSyncElement) {
+          lastSyncElement.textContent = communityData.lastSync;
+        }
+        
+        syncBtn.textContent = '📡 Sincronizar quando online';
+        syncBtn.disabled = false;
+        
+        showNotification('✅ Dados sincronizados com sucesso!');
+      }, 2000);
+    }
+
+    function exportData() {
+      const dataStr = JSON.stringify(communityData, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `comunidade-dados-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showNotification('💾 Dados exportados com sucesso!');
+    }
 
     // Adicionar animação de entrada
     document.addEventListener('DOMContentLoaded', () => {
