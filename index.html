@@ -2,11 +2,34 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Matemática Divertida - Para Crianças</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Aplicativo educativo para ensinar matemática básica de forma divertida para crianças">
+  <meta name="keywords" content="matemática, crianças, educação, jogos educativos, soma, subtração, multiplicação, divisão">
+  <meta name="author" content="Ítalo Moura - AWS Amazon Q CLI">
+  <meta name="theme-color" content="#764ba2">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Math Kids">
+  <meta name="msapplication-TileColor" content="#667eea">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Audio System -->
+  <script src="audio.js"></script>
   <style>
     * {
       margin: 0;
@@ -72,11 +95,59 @@
       backdrop-filter: blur(10px);
     }
 
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
     .title {
       font-size: 2rem;
       color: #4a5568;
-      margin-bottom: 0.5rem;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .audio-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .audio-btn {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .audio-btn:active {
+      transform: scale(0.95);
+    }
+
+    .audio-btn.muted {
+      background: linear-gradient(45deg, #ff6b6b, #ffa8a8);
+    }
+
+    .audio-btn.music-on {
+      background: linear-gradient(45deg, #56ab2f, #a8e6cf);
     }
 
     .score-board {
@@ -313,6 +384,23 @@
     @media (max-width: 768px) {
       .title {
         font-size: 1.5rem;
+        min-width: auto;
+      }
+
+      .header-top {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .audio-controls {
+        order: -1;
+        align-self: flex-end;
+      }
+
+      .audio-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
       }
       
       .question {
@@ -351,6 +439,20 @@
     }
 
     @media (max-width: 480px) {
+      .header-top {
+        gap: 0.25rem;
+      }
+
+      .title {
+        font-size: 1.3rem;
+      }
+
+      .audio-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+
       .question {
         font-size: 1.5rem;
         flex-wrap: wrap;
@@ -381,7 +483,20 @@
   <div id="app">
     <!-- Header -->
     <header class="header">
-      <h1 class="title">🧮 Matemática Divertida! 🎉</h1>
+      <div class="header-top">
+        <h1 class="title">🧮 Matemática Divertida! 🎉</h1>
+        <div class="audio-controls">
+          <button id="muteBtn" class="audio-btn" onclick="toggleMute()" title="Som On/Off">
+            <span id="muteIcon">🔊</span>
+          </button>
+          <button id="musicBtn" class="audio-btn" onclick="toggleMusic()" title="Música de Fundo">
+            <span id="musicIcon">🎵</span>
+          </button>
+          <button id="installBtn" class="audio-btn" onclick="installPWA()" title="Instalar App" style="display: none;">
+            <span>📱</span>
+          </button>
+        </div>
+      </div>
       <div class="score-board">
         <div class="score">
           <span class="score-label">Pontos:</span>
@@ -491,6 +606,10 @@
       showFeedback: false
     };
 
+    // PWA Variables
+    let deferredPrompt;
+    let isInstalled = false;
+
     const operations = {
       '+': 'Soma',
       '-': 'Subtração',
@@ -504,9 +623,143 @@
       'Difícil': { range: 100, emoji: '🤯' }
     };
 
+    // PWA Functions
+    function registerServiceWorker() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/math-kids-app/sw.js')
+          .then((registration) => {
+            console.log('Service Worker registrado:', registration);
+          })
+          .catch((error) => {
+            console.log('Erro ao registrar Service Worker:', error);
+          });
+      }
+    }
+
+    function setupPWA() {
+      // Detectar se já está instalado
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        isInstalled = true;
+        document.getElementById('installBtn').style.display = 'none';
+      }
+
+      // Capturar evento de instalação
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installBtn').style.display = 'flex';
+      });
+
+      // Detectar instalação
+      window.addEventListener('appinstalled', () => {
+        isInstalled = true;
+        document.getElementById('installBtn').style.display = 'none';
+        showNotification('App instalado com sucesso! 🎉');
+      });
+    }
+
+    function installPWA() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('PWA instalado');
+          }
+          deferredPrompt = null;
+        });
+      }
+    }
+
+    // Audio Functions
+    function toggleMute() {
+      if (window.mathAudio) {
+        const isMuted = window.mathAudio.toggleMute();
+        const muteBtn = document.getElementById('muteBtn');
+        const muteIcon = document.getElementById('muteIcon');
+        
+        if (isMuted) {
+          muteBtn.classList.add('muted');
+          muteIcon.textContent = '🔇';
+        } else {
+          muteBtn.classList.remove('muted');
+          muteIcon.textContent = '🔊';
+          window.mathAudio.resume();
+        }
+        
+        window.mathAudio.play('click');
+      }
+    }
+
+    function toggleMusic() {
+      if (window.mathAudio) {
+        const musicEnabled = window.mathAudio.toggleMusic();
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        if (musicEnabled) {
+          musicBtn.classList.add('music-on');
+          musicIcon.textContent = '🎶';
+        } else {
+          musicBtn.classList.remove('music-on');
+          musicIcon.textContent = '🎵';
+        }
+        
+        window.mathAudio.play('click');
+      }
+    }
+
+    function showNotification(message) {
+      // Criar notificação visual
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        font-family: 'Comic Neue', cursive;
+        font-weight: bold;
+        max-width: 300px;
+        animation: slideIn 0.3s ease-out;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
     // Inicializar o jogo
     function initGame() {
       generateQuestion();
+      
+      // Configurar PWA
+      registerServiceWorker();
+      setupPWA();
+      
+      // Configurar áudio
+      document.addEventListener('click', () => {
+        if (window.mathAudio) {
+          window.mathAudio.resume();
+        }
+      }, { once: true });
+
+      // Detectar parâmetros da URL para shortcuts
+      const urlParams = new URLSearchParams(window.location.search);
+      const operation = urlParams.get('op');
+      if (operation) {
+        const opMap = { 'add': '+', 'subtract': '-', 'multiply': '*', 'divide': '/' };
+        if (opMap[operation]) {
+          gameState.selectedOperation = opMap[operation];
+          updateOperationButtons();
+        }
+      }
     }
 
     // Gerar nova questão
@@ -612,10 +865,26 @@
         gameState.score += 10;
         gameState.streak += 1;
         
+        // Sons e efeitos
+        if (window.mathAudio) {
+          window.mathAudio.play('success');
+        }
+        
         // Vibração de sucesso
         if (navigator.vibrate) {
           navigator.vibrate([100, 50, 100]);
         }
+
+        // Som especial para sequências altas
+        if (gameState.streak > 0 && gameState.streak % 5 === 0) {
+          setTimeout(() => {
+            if (window.mathAudio) {
+              window.mathAudio.play('achievement');
+            }
+            showNotification(`🔥 Sequência de ${gameState.streak}! Incrível!`);
+          }, 500);
+        }
+        
       } else {
         // Resposta incorreta
         questionCard.classList.add('incorrect', 'shake');
@@ -623,6 +892,11 @@
         correctFeedback.style.display = 'none';
         
         gameState.streak = 0;
+        
+        // Sons e efeitos
+        if (window.mathAudio) {
+          window.mathAudio.play('error');
+        }
         
         // Vibração de erro
         if (navigator.vibrate) {
@@ -663,16 +937,33 @@
     function selectOperation(operation, button) {
       gameState.selectedOperation = operation;
       
-      // Atualizar botões ativos
-      document.querySelectorAll('.operation-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+      // Som de clique
+      if (window.mathAudio) {
+        window.mathAudio.play('click');
+      }
       
+      updateOperationButtons();
       generateQuestion();
+    }
+
+    // Atualizar botões de operação
+    function updateOperationButtons() {
+      document.querySelectorAll('.operation-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.onclick.toString().includes(`'${gameState.selectedOperation}'`)) {
+          btn.classList.add('active');
+        }
+      });
     }
 
     // Selecionar dificuldade
     function selectDifficulty(difficulty, button) {
       gameState.selectedDifficulty = difficulty;
+      
+      // Som de clique
+      if (window.mathAudio) {
+        window.mathAudio.play('click');
+      }
       
       // Atualizar botões ativos
       document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
@@ -681,8 +972,71 @@
       generateQuestion();
     }
 
+    // Adicionar sons de hover aos botões
+    function addHoverSounds() {
+      document.querySelectorAll('.answer-btn, .operation-btn, .difficulty-btn, .audio-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          if (window.mathAudio && !btn.disabled) {
+            window.mathAudio.play('hover');
+          }
+        });
+        
+        btn.addEventListener('click', () => {
+          if (window.mathAudio && !btn.classList.contains('audio-btn')) {
+            window.mathAudio.play('click');
+          }
+        });
+      });
+    }
+
     // Inicializar quando a página carregar
-    window.addEventListener('load', initGame);
+    window.addEventListener('load', () => {
+      initGame();
+      
+      // Adicionar sons de hover após carregar
+      setTimeout(() => {
+        addHoverSounds();
+      }, 1000);
+    });
+
+    // Adicionar animação de entrada
+    document.addEventListener('DOMContentLoaded', () => {
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        .game-container > * {
+          animation: fadeInUp 0.6s ease-out forwards;
+          opacity: 0;
+        }
+        
+        .game-container > *:nth-child(1) { animation-delay: 0.1s; }
+        .game-container > *:nth-child(2) { animation-delay: 0.2s; }
+        .game-container > *:nth-child(3) { animation-delay: 0.3s; }
+        .game-container > *:nth-child(4) { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+          from {
+            transform: translateY(30px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    });
   </script>
 </body>
 </html>
