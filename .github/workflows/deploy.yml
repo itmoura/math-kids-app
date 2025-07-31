@@ -26,13 +26,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
         
-    - name: Install dependencies
-      run: npm ci
-      
+    - name: Install dependencies with yarn
+      run: |
+        npm install -g yarn
+        yarn install
+        
     - name: Build project
-      run: npm run build
+      run: yarn build
       
     - name: Prepare GitHub Pages files
       run: |
@@ -49,40 +50,206 @@ jobs:
         # Copiar página de seleção
         cp public/index-pages.html dist/
         
-        # Criar index.html que redireciona para página de seleção
+        # Renomear o index.html do Vue para vue-app.html
+        mv dist/index.html dist/vue-app.html
+        
+        # Criar index.html que oferece as opções
         cat > dist/index.html << 'EOF'
         <!DOCTYPE html>
         <html lang="pt-BR">
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Matemática Divertida - Redirecionando...</title>
+          <title>Matemática Divertida - Para Crianças</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
           <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            
             body {
               font-family: 'Comic Neue', cursive;
               background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              min-height: 100vh;
               display: flex;
-              justify-content: center;
+              flex-direction: column;
               align-items: center;
-              height: 100vh;
-              margin: 0;
-              color: white;
-              text-align: center;
+              justify-content: center;
+              padding: 2rem;
             }
-            .loading {
+
+            .container {
+              background: rgba(255, 255, 255, 0.95);
+              border-radius: 20px;
+              padding: 3rem;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+              backdrop-filter: blur(10px);
+              text-align: center;
+              max-width: 600px;
+              width: 100%;
+            }
+
+            .title {
+              font-size: 2.5rem;
+              color: #4a5568;
+              margin-bottom: 1rem;
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .subtitle {
+              font-size: 1.2rem;
+              color: #666;
+              margin-bottom: 2rem;
+            }
+
+            .versions {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 2rem;
+              margin: 2rem 0;
+            }
+
+            .version-card {
+              background: linear-gradient(45deg, #667eea, #764ba2);
+              color: white;
+              padding: 2rem;
+              border-radius: 15px;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+              display: block;
+            }
+
+            .version-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            .version-card.standalone {
+              background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            }
+
+            .version-title {
               font-size: 1.5rem;
+              font-weight: bold;
+              margin-bottom: 1rem;
+            }
+
+            .version-description {
+              font-size: 1rem;
+              line-height: 1.5;
+              margin-bottom: 1rem;
+            }
+
+            .version-features {
+              list-style: none;
+              text-align: left;
+              font-size: 0.9rem;
+            }
+
+            .version-features li {
+              margin: 0.5rem 0;
+              padding-left: 1rem;
+              position: relative;
+            }
+
+            .version-features li:before {
+              content: "✅";
+              position: absolute;
+              left: 0;
+            }
+
+            .footer {
+              margin-top: 2rem;
+              color: #666;
+              font-size: 0.9rem;
+            }
+
+            .github-link {
+              display: inline-block;
+              margin-top: 1rem;
+              padding: 0.5rem 1rem;
+              background: linear-gradient(45deg, #ff6b6b, #feca57);
+              color: white;
+              text-decoration: none;
+              border-radius: 25px;
+              font-weight: bold;
+              transition: all 0.3s ease;
+            }
+
+            .github-link:hover {
+              transform: scale(1.05);
+            }
+
+            @media (max-width: 768px) {
+              .title {
+                font-size: 2rem;
+              }
+              
+              .container {
+                padding: 2rem;
+                margin: 1rem;
+              }
+              
+              .versions {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+              }
             }
           </style>
         </head>
         <body>
-          <div class="loading">
-            🧮 Carregando Matemática Divertida... 🎉
+          <div class="container">
+            <h1 class="title">🧮 Matemática Divertida! 🎉</h1>
+            <p class="subtitle">Escolha a versão que você prefere usar:</p>
+            
+            <div class="versions">
+              <a href="./vue-app.html" class="version-card">
+                <div class="version-title">🚀 Versão Vue.js</div>
+                <div class="version-description">
+                  Aplicação completa com Vue.js e Vite
+                </div>
+                <ul class="version-features">
+                  <li>Interface moderna e reativa</li>
+                  <li>Animações suaves</li>
+                  <li>Otimizada para performance</li>
+                  <li>Experiência completa</li>
+                </ul>
+              </a>
+              
+              <a href="./standalone.html" class="version-card standalone">
+                <div class="version-title">⚡ Versão Standalone</div>
+                <div class="version-description">
+                  Arquivo único, funciona em qualquer lugar
+                </div>
+                <ul class="version-features">
+                  <li>Não precisa de instalação</li>
+                  <li>Funciona offline</li>
+                  <li>Fácil de compartilhar</li>
+                  <li>Compatível com tudo</li>
+                </ul>
+              </a>
+            </div>
+            
+            <div class="footer">
+              <p>© 2025 Ítalo Moura - Desenvolvido com 💙 AWS Amazon Q CLI</p>
+              <a href="https://github.com/itmoura/math-kids-app" class="github-link" target="_blank">
+                📂 Ver no GitHub
+              </a>
+            </div>
           </div>
+
           <script>
-            // Redirecionar para a página de seleção
-            setTimeout(() => {
-              window.location.href = './index-pages.html';
-            }, 1000);
+            // Detectar se é mobile e sugerir a versão standalone
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              const standaloneCard = document.querySelector('.version-card.standalone');
+              standaloneCard.style.border = '3px solid #feca57';
+              standaloneCard.innerHTML += '<div style="background: #feca57; color: #333; padding: 0.5rem; margin-top: 1rem; border-radius: 10px; font-weight: bold;">📱 Recomendado para mobile!</div>';
+            }
           </script>
         </body>
         </html>
