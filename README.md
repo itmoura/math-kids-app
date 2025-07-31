@@ -162,13 +162,13 @@ Componente principal que contém toda a lógica do jogo:
 
 ## 🔄 Futuras Melhorias
 
-- [ ] Sistema de níveis e conquistas
+- [x] ✅ **Sons e efeitos sonoros** - Implementado com Web Audio API
+- [x] ✅ **Sistema de níveis e conquistas** - Sistema completo com XP, níveis e achievements
+- [x] ✅ **Modo offline (PWA)** - Progressive Web App instalável
 - [ ] Relatórios de progresso para pais/professores
 - [ ] Modo multiplayer local
-- [ ] Sons e efeitos sonoros
 - [ ] Temas visuais personalizáveis
 - [ ] Suporte a frações simples
-- [ ] Modo offline (PWA)
 
 ## 🐛 Resolução de Problemas
 

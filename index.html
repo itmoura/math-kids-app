@@ -153,11 +153,12 @@
     .score-board {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
 
-    .score, .streak {
+    .score, .streak, .level-info {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -167,6 +168,124 @@
       color: white;
       font-weight: bold;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      min-width: 80px;
+      justify-content: center;
+    }
+
+    .level-info {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+
+    .level-emoji {
+      font-size: 1.2em;
+      margin-left: 0.25rem;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      max-width: 400px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 auto 0.5rem;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+      width: 0%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .progress-text {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* Achievements */
+    .achievements-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .achievement-popup {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      margin: 1rem;
+      animation: bounceIn 0.6s ease;
+    }
+
+    .achievement-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+    }
+
+    .achievement-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .achievement-description {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     /* Game Container */
@@ -310,7 +429,6 @@
     }
 
     .operation-btn {
-      background: linear-gradient(45deg, #feca57, #ff9ff3);
       border: none;
       border-radius: 12px;
       padding: 1rem;
@@ -318,11 +436,35 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       font-family: 'Comic Neue', cursive;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Cores específicas para cada operação */
+    .operation-btn.add {
+      background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+    }
+
+    .operation-btn.subtract {
+      background: linear-gradient(45deg, #ff6b6b, #ffa8a8);
+    }
+
+    .operation-btn.multiply {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+
+    .operation-btn.divide {
+      background: linear-gradient(45deg, #feca57, #ff9ff3);
     }
 
     .operation-btn.active {
-      background: linear-gradient(45deg, #56ab2f, #a8e6cf);
       transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .operation-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
 
     .op-symbol {
@@ -502,9 +644,33 @@
           <span class="score-label">Pontos:</span>
           <span class="score-value" id="score">0</span>
         </div>
+        <div class="level-info">
+          <span class="level-label">Nível:</span>
+          <span class="level-value" id="level">1</span>
+          <span class="level-emoji" id="levelEmoji">🌱</span>
+        </div>
         <div class="streak" id="streak-container" style="display: none;">
           <span class="streak-label">Sequência:</span>
           <span class="streak-value" id="streak">0🔥</span>
+        </div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+          <span id="progressText">0/50 XP para próximo nível</span>
+        </div>
+      </div>
+      
+      <!-- Achievements Panel -->
+      <div class="achievements-panel" id="achievementsPanel" style="display: none;">
+        <div class="achievement-popup">
+          <div class="achievement-icon" id="achievementIcon">🏆</div>
+          <div class="achievement-title" id="achievementTitle">Nova Conquista!</div>
+          <div class="achievement-description" id="achievementDescription">Você desbloqueou algo incrível!</div>
         </div>
       </div>
     </header>
@@ -544,19 +710,19 @@
       <div class="operation-selector">
         <h3>Escolha a operação:</h3>
         <div class="operations">
-          <button class="operation-btn active" onclick="selectOperation('+', this)">
+          <button class="operation-btn add active" onclick="selectOperation('+', this)">
             <span class="op-symbol">+</span>
             <span class="op-name">Soma</span>
           </button>
-          <button class="operation-btn" onclick="selectOperation('-', this)">
+          <button class="operation-btn subtract" onclick="selectOperation('-', this)">
             <span class="op-symbol">-</span>
             <span class="op-name">Subtração</span>
           </button>
-          <button class="operation-btn" onclick="selectOperation('*', this)">
+          <button class="operation-btn multiply" onclick="selectOperation('*', this)">
             <span class="op-symbol">×</span>
             <span class="op-name">Multiplicação</span>
           </button>
-          <button class="operation-btn" onclick="selectOperation('/', this)">
+          <button class="operation-btn divide" onclick="selectOperation('/', this)">
             <span class="op-symbol">÷</span>
             <span class="op-name">Divisão</span>
           </button>
@@ -595,6 +761,10 @@
     let gameState = {
       score: 0,
       streak: 0,
+      level: 1,
+      xp: 0,
+      totalQuestions: 0,
+      correctAnswers: 0,
       currentQuestion: {
         num1: 0,
         num2: 0,
@@ -603,7 +773,152 @@
       },
       selectedOperation: '+',
       selectedDifficulty: 'Fácil',
-      showFeedback: false
+      showFeedback: false,
+      achievements: []
+    };
+
+    // Sistema de níveis
+    const levelSystem = {
+      levels: [
+        { level: 1, xpRequired: 0, emoji: '🌱', title: 'Iniciante' },
+        { level: 2, xpRequired: 50, emoji: '🌿', title: 'Aprendiz' },
+        { level: 3, xpRequired: 150, emoji: '🌳', title: 'Estudioso' },
+        { level: 4, xpRequired: 300, emoji: '⭐', title: 'Talentoso' },
+        { level: 5, xpRequired: 500, emoji: '🏆', title: 'Expert' },
+        { level: 6, xpRequired: 750, emoji: '💎', title: 'Mestre' },
+        { level: 7, xpRequired: 1050, emoji: '👑', title: 'Campeão' },
+        { level: 8, xpRequired: 1400, emoji: '🚀', title: 'Gênio' },
+        { level: 9, xpRequired: 1800, emoji: '🌟', title: 'Lenda' },
+        { level: 10, xpRequired: 2250, emoji: '🎯', title: 'Matemático' }
+      ],
+      
+      getCurrentLevel() {
+        for (let i = this.levels.length - 1; i >= 0; i--) {
+          if (gameState.xp >= this.levels[i].xpRequired) {
+            return this.levels[i];
+          }
+        }
+        return this.levels[0];
+      },
+      
+      getNextLevel() {
+        const currentLevel = this.getCurrentLevel();
+        const nextLevelIndex = this.levels.findIndex(l => l.level === currentLevel.level) + 1;
+        return nextLevelIndex < this.levels.length ? this.levels[nextLevelIndex] : null;
+      },
+      
+      getProgressToNextLevel() {
+        const currentLevel = this.getCurrentLevel();
+        const nextLevel = this.getNextLevel();
+        
+        if (!nextLevel) return { progress: 100, current: gameState.xp, needed: 0 };
+        
+        const currentXP = gameState.xp - currentLevel.xpRequired;
+        const neededXP = nextLevel.xpRequired - currentLevel.xpRequired;
+        const progress = (currentXP / neededXP) * 100;
+        
+        return {
+          progress: Math.min(progress, 100),
+          current: currentXP,
+          needed: neededXP
+        };
+      }
+    };
+
+    // Sistema de conquistas
+    const achievementSystem = {
+      achievements: [
+        {
+          id: 'first_correct',
+          title: 'Primeira Vitória!',
+          description: 'Acertou sua primeira questão',
+          icon: '🎉',
+          condition: () => gameState.correctAnswers >= 1
+        },
+        {
+          id: 'streak_5',
+          title: 'Em Chamas!',
+          description: 'Acertou 5 questões seguidas',
+          icon: '🔥',
+          condition: () => gameState.streak >= 5
+        },
+        {
+          id: 'streak_10',
+          title: 'Imparável!',
+          description: 'Acertou 10 questões seguidas',
+          icon: '⚡',
+          condition: () => gameState.streak >= 10
+        },
+        {
+          id: 'questions_50',
+          title: 'Persistente',
+          description: 'Respondeu 50 questões',
+          icon: '💪',
+          condition: () => gameState.totalQuestions >= 50
+        },
+        {
+          id: 'level_5',
+          title: 'Expert Matemático',
+          description: 'Alcançou o nível 5',
+          icon: '🏆',
+          condition: () => gameState.level >= 5
+        },
+        {
+          id: 'all_operations',
+          title: 'Versátil',
+          description: 'Usou todas as 4 operações',
+          icon: '🎯',
+          condition: () => {
+            const operations = JSON.parse(localStorage.getItem('usedOperations') || '[]');
+            return operations.length >= 4;
+          }
+        }
+      ],
+      
+      checkAchievements() {
+        this.achievements.forEach(achievement => {
+          if (!gameState.achievements.includes(achievement.id) && achievement.condition()) {
+            this.unlockAchievement(achievement);
+          }
+        });
+      },
+      
+      unlockAchievement(achievement) {
+        gameState.achievements.push(achievement.id);
+        this.showAchievementPopup(achievement);
+        
+        // XP bonus para conquistas
+        gameState.xp += 25;
+        
+        if (window.mathAudio) {
+          window.mathAudio.play('achievement');
+        }
+        
+        // Salvar no localStorage
+        localStorage.setItem('achievements', JSON.stringify(gameState.achievements));
+      },
+      
+      showAchievementPopup(achievement) {
+        const panel = document.getElementById('achievementsPanel');
+        const icon = document.getElementById('achievementIcon');
+        const title = document.getElementById('achievementTitle');
+        const description = document.getElementById('achievementDescription');
+        
+        icon.textContent = achievement.icon;
+        title.textContent = achievement.title;
+        description.textContent = achievement.description;
+        
+        panel.style.display = 'flex';
+        
+        setTimeout(() => {
+          panel.style.display = 'none';
+        }, 3000);
+        
+        // Fechar ao clicar
+        panel.onclick = () => {
+          panel.style.display = 'none';
+        };
+      }
     };
 
     // PWA Variables
@@ -626,7 +941,7 @@
     // PWA Functions
     function registerServiceWorker() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/math-kids-app/sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then((registration) => {
             console.log('Service Worker registrado:', registration);
           })
@@ -737,7 +1052,11 @@
 
     // Inicializar o jogo
     function initGame() {
+      // Carregar progresso salvo
+      loadProgress();
+      
       generateQuestion();
+      updateScoreDisplay();
       
       // Configurar PWA
       registerServiceWorker();
@@ -856,6 +1175,8 @@
       // Desabilitar todos os botões
       document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
       
+      gameState.totalQuestions++;
+      
       if (selectedAnswer === gameState.currentQuestion.correctAnswer) {
         // Resposta correta
         questionCard.classList.add('correct', 'bounce');
@@ -864,6 +1185,18 @@
         
         gameState.score += 10;
         gameState.streak += 1;
+        gameState.correctAnswers++;
+        
+        // Calcular XP baseado na dificuldade
+        let xpGain = 5; // XP base
+        if (gameState.selectedDifficulty === 'Médio') xpGain = 8;
+        if (gameState.selectedDifficulty === 'Difícil') xpGain = 12;
+        
+        // Bonus por sequência
+        if (gameState.streak >= 5) xpGain += 2;
+        if (gameState.streak >= 10) xpGain += 3;
+        
+        gameState.xp += xpGain;
         
         // Sons e efeitos
         if (window.mathAudio) {
@@ -881,8 +1214,15 @@
             if (window.mathAudio) {
               window.mathAudio.play('achievement');
             }
-            showNotification(`🔥 Sequência de ${gameState.streak}! Incrível!`);
+            showNotification(`🔥 Sequência de ${gameState.streak}! +${xpGain} XP!`);
           }, 500);
+        }
+        
+        // Salvar operação usada para conquista
+        const usedOperations = JSON.parse(localStorage.getItem('usedOperations') || '[]');
+        if (!usedOperations.includes(gameState.selectedOperation)) {
+          usedOperations.push(gameState.selectedOperation);
+          localStorage.setItem('usedOperations', JSON.stringify(usedOperations));
         }
         
       } else {
@@ -930,6 +1270,102 @@
         streakValue.textContent = gameState.streak + '🔥';
       } else {
         streakContainer.style.display = 'none';
+      }
+      
+      // Atualizar nível
+      const currentLevel = levelSystem.getCurrentLevel();
+      const oldLevel = gameState.level;
+      gameState.level = currentLevel.level;
+      
+      document.getElementById('level').textContent = gameState.level;
+      document.getElementById('levelEmoji').textContent = currentLevel.emoji;
+      
+      // Verificar se subiu de nível
+      if (gameState.level > oldLevel) {
+        showLevelUpNotification(currentLevel);
+      }
+      
+      // Atualizar barra de progresso
+      updateProgressBar();
+      
+      // Verificar conquistas
+      achievementSystem.checkAchievements();
+      
+      // Salvar progresso
+      saveProgress();
+    }
+
+    function updateProgressBar() {
+      const progress = levelSystem.getProgressToNextLevel();
+      const progressFill = document.getElementById('progressFill');
+      const progressText = document.getElementById('progressText');
+      
+      progressFill.style.width = progress.progress + '%';
+      
+      if (progress.needed > 0) {
+        progressText.textContent = `${progress.current}/${progress.needed} XP para próximo nível`;
+      } else {
+        progressText.textContent = 'Nível máximo alcançado! 🎉';
+      }
+    }
+
+    function showLevelUpNotification(level) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        font-family: 'Comic Neue', cursive;
+        text-align: center;
+        animation: bounceIn 0.6s ease;
+      `;
+      
+      notification.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 1rem;">${level.emoji}</div>
+        <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem;">NÍVEL ${level.level}!</div>
+        <div style="font-size: 1rem;">${level.title}</div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      if (window.mathAudio) {
+        window.mathAudio.play('achievement');
+      }
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    function saveProgress() {
+      const progress = {
+        score: gameState.score,
+        level: gameState.level,
+        xp: gameState.xp,
+        totalQuestions: gameState.totalQuestions,
+        correctAnswers: gameState.correctAnswers,
+        achievements: gameState.achievements
+      };
+      localStorage.setItem('mathKidsProgress', JSON.stringify(progress));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('mathKidsProgress');
+      if (saved) {
+        const progress = JSON.parse(saved);
+        gameState.score = progress.score || 0;
+        gameState.level = progress.level || 1;
+        gameState.xp = progress.xp || 0;
+        gameState.totalQuestions = progress.totalQuestions || 0;
+        gameState.correctAnswers = progress.correctAnswers || 0;
+        gameState.achievements = progress.achievements || [];
       }
     }
 
